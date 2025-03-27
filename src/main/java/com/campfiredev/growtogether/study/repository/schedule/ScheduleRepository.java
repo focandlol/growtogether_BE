@@ -3,15 +3,13 @@ package com.campfiredev.growtogether.study.repository.schedule;
 import com.campfiredev.growtogether.study.entity.Study;
 import com.campfiredev.growtogether.study.entity.schedule.ScheduleEntity;
 import com.campfiredev.growtogether.study.type.ScheduleType;
-import jakarta.ejb.Schedule;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
 
@@ -56,5 +54,10 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
   List<ScheduleEntity> findByStudyAndStartBetweenAndType(Study study, LocalDateTime start,
       LocalDateTime end, ScheduleType type);
 
+  @Query("SELECT DISTINCT se.study FROM ScheduleEntity se " +
+          "WHERE se.study.studyStatus = 'PROGRESS' AND se.end < :currentTime")
+  List<Study> findStudiesWithLastScheduleExpired(LocalDateTime currentTime);
+
+  List<ScheduleEntity> findAllByStudy_StudyIdAndType(Long studyId, ScheduleType type);
 
 }

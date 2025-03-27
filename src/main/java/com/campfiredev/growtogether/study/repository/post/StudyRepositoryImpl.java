@@ -55,7 +55,7 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom {
             switch (filter.getSortBy()) {
                 case CREATED_AT -> query.orderBy(study.createdAt.desc()); // 최신순
                 case VIEW_COUNT -> query.orderBy(study.viewCount.desc()); // 조회순
-                case DEADLINE -> query.orderBy(schedule.start.asc()); // 모집 마감 임박순
+                case DEADLINE -> query.orderBy(study.studyClosingDate.asc()); // 모집 마감 임박순
             }
         }
 

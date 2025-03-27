@@ -4,11 +4,12 @@ import com.campfiredev.growtogether.member.entity.MemberEntity;
 import com.campfiredev.growtogether.study.entity.Study;
 import com.campfiredev.growtogether.study.entity.join.StudyMemberEntity;
 import com.campfiredev.growtogether.study.type.StudyMemberType;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface JoinRepository extends JpaRepository<StudyMemberEntity, Long> {
 
@@ -57,7 +58,7 @@ public interface JoinRepository extends JpaRepository<StudyMemberEntity, Long> {
 
   Optional<StudyMemberEntity> findByMember_MemberIdAndStudy_StudyId(Long memberId, Long studyId);
 
-
+  List<StudyMemberEntity> findAllByStudy_StudyId(Long studyId);
 
  // List<StudyMemberEntity> findByMember_MemberId(Long memberId);
 

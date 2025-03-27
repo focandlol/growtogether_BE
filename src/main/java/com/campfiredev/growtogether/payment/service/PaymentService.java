@@ -47,17 +47,15 @@ public class PaymentService {
         parameters.put("quantity", "1");                                                // 상품 수량
         parameters.put("total_amount", String.valueOf(paymentOrder.totalPrice()));      // 상품 총액
         parameters.put("tax_free_amount", "0");                                         // 상품 비과세 금액
-        parameters.put("approval_url", "http://localhost:8080/payment/approve");        // 결제 성공 시 URL
+        parameters.put("approval_url", "http://localhost:5173/payment/approve");        // 결제 성공 시 URL
         parameters.put("cancel_url", "http://localhost:8080/payment/cancel");           // 결제 취소 시 URL
-        parameters.put("fail_url", "http://localhost:8080//payment/fail");              // 결제 실패 시 URL
+        parameters.put("fail_url", "http://localhost:5173/mypage");              // 결제 실패 시 URL
 
         return restTemplate.postForEntity(
                 payConfig.readyUri(),
                 new HttpEntity<>(parameters, getHeaders()),
                 ReadyResponse.class).getBody();
     }
-
-
     // 카카오페이 결제 승인
     // 사용자가 결제 수단을 선택하고 비밀번호를 입력해 결제 인증을 완료한 뒤, 최종적으로 결제 완료 처리를 하는 단계
     @Transactional

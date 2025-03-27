@@ -222,7 +222,8 @@ public class MemberService {
         redisTemplate.opsForValue().set(RESET_PASSWORD_PREFIX + token, email, TOKEN_EXPIRATION_TIME, TimeUnit.MINUTES);
 
         // 비밀번호 재설정 URL 생성
-        String resetUrl = "http://localhost:3000/reset-password?token=" + token; // 프론트엔드 URL
+        String resetUrl = "http://localhost:5173/resetpassword?token=" + token;
+
 
         // 이메일 전송
         emailService.sendPasswordResetEmail(email, resetUrl);

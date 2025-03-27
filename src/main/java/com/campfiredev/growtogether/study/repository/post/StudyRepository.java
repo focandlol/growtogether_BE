@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudyRepository extends JpaRepository<Study, Long>, StudyRepositoryCustom {
-    Page<Study> findByIsDeletedFalseOrderByCreatedAtDesc(Pageable pageable);
-
     List<Study> findByStudyStatus(StudyStatus studyStatus);
 
     @Query("SELECT s FROM Study s " +
@@ -22,11 +21,8 @@ public interface StudyRepository extends JpaRepository<Study, Long>, StudyReposi
     )
     Page<Study> findByPopularity(Pageable pageable);
 
-    int countAllByMemberMemberId(Long memberId);
-
     List<Study> findByMemberMemberIdAndIsDeletedFalse(Long memberId);
 
-
-
+    Optional<Study> findByStudyIdAndIsDeletedFalse(Long studyId);
 }
 

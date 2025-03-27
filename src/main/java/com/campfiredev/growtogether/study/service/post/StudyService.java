@@ -73,7 +73,7 @@ public class StudyService {
 
         joinRepository.save(studyMemberEntity);
 
-        pointService.usePoint(memberId, savedStudy.getStudyCount() * 30);
+        pointService.usePoint(memberId, savedStudy.getStudyCount() * 5);
 
         List<MainScheduleDto> list = StudyScheduleDto.formDto(dto.getMainScheduleList());
 
@@ -177,6 +177,7 @@ public class StudyService {
         return studyRepository.findByPopularity(pageable).stream()
                 .map(StudyDTO::fromEntity)
                 .toList();
+
     }
 
     private StudyDTO getStudyDTO(Study study) {

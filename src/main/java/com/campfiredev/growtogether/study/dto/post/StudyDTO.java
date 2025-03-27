@@ -64,6 +64,8 @@ public class StudyDTO {
     @Setter
     private Integer likeCount;
 
+    private String profileImageUrl;
+
     private LocalDateTime createdAt;
 
     public static StudyDTO fromEntity(Study study) {
@@ -86,6 +88,7 @@ public class StudyDTO {
                 .studyCount(study.getStudyCount())
                 .skillNames(skillNames)
                 .author(study.getMember().getNickName())
+                .profileImageUrl(study.getMember().getProfileImageUrl())
                 .createdAt(study.getCreatedAt())
                 .build();
     }

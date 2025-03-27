@@ -3,9 +3,12 @@ package com.campfiredev.growtogether.study.service.comment;
 import com.campfiredev.growtogether.exception.custom.CustomException;
 import com.campfiredev.growtogether.member.entity.MemberEntity;
 import com.campfiredev.growtogether.member.repository.MemberRepository;
+import com.campfiredev.growtogether.notification.service.NotificationService;
 import com.campfiredev.growtogether.study.dto.comment.StudyCommentDto;
+import com.campfiredev.growtogether.study.entity.Study;
 import com.campfiredev.growtogether.study.entity.StudyComment;
 import com.campfiredev.growtogether.study.repository.comment.StudyCommentRepository;
+import com.campfiredev.growtogether.study.repository.post.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,15 +20,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.campfiredev.growtogether.exception.response.ErrorCode.*;
+import static com.campfiredev.growtogether.notification.type.NotiType.STUDY;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class StudyCommentService {
+    private final String deletedCommentMessage = "작성자에 의해 삭제된 댓글입니다.";
 
     private final StudyCommentRepository studyCommentRepository;
     private final MemberRepository memberRepository;
-    private final String deletedCommentMessage = "작성자에 의해 삭제된 댓글입니다.";
+    private final StudyRepository studyRepository;
+    private final NotificationService notificationService;
 
     public void createComment(StudyCommentDto dto, Long memberId) {
         MemberEntity member = memberRepository.findById(memberId).orElseThrow(
@@ -40,6 +46,8 @@ public class StudyCommentService {
                 .build();
 
         studyCommentRepository.save(comment);
+
+        sendNotiComment(comment);
     }
 
     public List<StudyCommentDto> getCommentsByStudyId(Long studyId, Long lastIdx, Long size) {
@@ -53,8 +61,7 @@ public class StudyCommentService {
             studyCommentList = studyCommentRepository.findByStudyIdAndIdLessThan(studyId, lastIdx, pageable);
         }
 
-        List<StudyCommentDto> studyCommentDtos = setChildComment(studyCommentList);
-        return studyCommentDtos;
+        return setChildComment(studyCommentList);
     }
 
     public List<StudyCommentDto> setChildComment(Page<StudyComment> studyCommentList) {
@@ -92,6 +99,15 @@ public class StudyCommentService {
     private void validateMember(Long memberId, StudyComment comment) {
         if (!comment.getMember().getMemberId().equals(memberId)) {
             throw new CustomException(NOT_AUTHOR);
+        }
+    }
+    private void sendNotiComment(StudyComment comment) {
+        if(0 == comment.getParentCommentId()){
+            Study study = studyRepository.findByStudyIdAndIsDeletedFalse(comment.getStudyId()).orElseThrow(() -> new CustomException(STUDY_NOT_FOUND));
+            notificationService.sendNotification(study.getMember(),comment.getMember().getNickName()+"님이 새로운 댓글을 작성했습니다.",null, STUDY);
+        }else{
+            StudyComment parentComment = studyCommentRepository.findById(comment.getParentCommentId()).orElseThrow(()-> new CustomException(COMMENT_NOT_FOUND));
+            notificationService.sendNotification(parentComment.getMember(),comment.getMember().getNickName()+"님이 새로운 대댓글을 작성했습니다.",null, STUDY);
         }
     }
 }

@@ -37,6 +37,9 @@ public class SecurityConfig {
             "/oauth/kakao",
             "/api/email/**",
             "/member/memberLogin",
+            "/member/forgot-password",
+            "/member/reset-password",
+            "/member/find-email",
             "/payment/**",
             "/member/register",
             "/member/memberLogin",
@@ -58,7 +61,8 @@ public class SecurityConfig {
             "/api/bootcamp/search",
             "/api/bootcamp/top",
             "/api/bootcamp/**",
-            "/api/bootcamp/comments/**"
+            "/api/bootcamp/comments/**",
+
 
     };
 
