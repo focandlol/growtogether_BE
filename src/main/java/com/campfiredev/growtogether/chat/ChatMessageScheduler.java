@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -35,16 +36,23 @@ public class ChatMessageScheduler {
   private final JoinRepository joinRepository;
 
   @Scheduled(cron = "0 0 0 * * *")
+  //@Scheduled(fixedRate = 1000 * 60 * 2)
   public void persistOldMessages() {
 
     List<Study> studies = studyRepository.findByStudyStatus(PROGRESS);
 
     log.info("chat scheduler");
 
-    for(Study study : studies) {
+    for (Study study : studies) {
       String redisKey = "chat" + study.getStudyId();
 
-      List<String> oldMessages = redisTemplate.opsForList().range(redisKey, 100, -1);
+      List<String> oldMessages = redisTemplate.opsForList().range(redisKey, 3, -1);
+
+      log.info("oldMessages size: " + oldMessages.size());
+      if (oldMessages.size() == 0 || oldMessages == null) {
+        continue;
+      }
+
 
       List<ChatMessageDto> messagesToSave = oldMessages.stream().map(msg -> {
         try {
@@ -74,7 +82,25 @@ public class ChatMessageScheduler {
 
       chatMessageRepository.saveAll(collect);
 
-      redisTemplate.opsForList().trim(redisKey, 0, 2);
+      log.info("after save");
+
+      deleteInRedis(redisKey, oldMessages.size());
     }
   }
+
+  public void deleteInRedis(String redisKey, int oldMessageCount) {
+    DefaultRedisScript<Void> script = new DefaultRedisScript<>();
+    script.setScriptText(
+        "local key = KEYS[1] " +
+            "local deleteCount = tonumber(ARGV[1]) " +
+            "local size = redis.call('LLEN', key) " +
+            "if size > deleteCount then " +
+            "  redis.call('LTRIM', key, 0, size - deleteCount - 1) " +
+            "end"
+    );
+    script.setResultType(Void.class);
+
+    redisTemplate.execute(script, List.of(redisKey), String.valueOf(oldMessageCount));
+  }
+
 }
