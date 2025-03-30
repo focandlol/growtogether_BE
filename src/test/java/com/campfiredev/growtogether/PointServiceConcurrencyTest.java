@@ -1,7 +1,7 @@
 //package com.campfiredev.growtogether;
 //
-//import com.campfiredev.growtogether.member.entity.MemberEntity;
-//import com.campfiredev.growtogether.member.repository.MemberRepository;
+//import focandlol.domain.entity.MemberEntity;
+//import focandlol.domain.repository.MemberRepository;
 //import com.campfiredev.growtogether.point.service.PointService;
 //import com.campfiredev.growtogether.study.dto.post.StudyDTO;
 //import com.campfiredev.growtogether.study.dto.post.StudyScheduleDto;
