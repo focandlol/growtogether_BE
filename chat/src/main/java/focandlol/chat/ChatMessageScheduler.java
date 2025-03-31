@@ -1,13 +1,18 @@
 package focandlol.chat;
 
-import focandlol.chat.dto.ChatMessageDto;
-import focandlol.chat.entity.ChatEntity;
-import focandlol.chat.repository.ChatRepository;
-import com.campfiredev.growtogether.study.entity.Study;
-import com.campfiredev.growtogether.study.entity.join.StudyMemberEntity;
-import com.campfiredev.growtogether.study.repository.join.JoinRepository;
-import com.campfiredev.growtogether.study.repository.post.StudyRepository;
+import static focandlol.domain.type.StudyMemberType.KICK;
+import static focandlol.domain.type.StudyMemberType.LEADER;
+import static focandlol.domain.type.StudyMemberType.NORMAL;
+import static focandlol.domain.type.StudyStatus.PROGRESS;
+
+import focandlol.domain.dto.study.chat.ChatMessageDto;
+import focandlol.domain.entity.chat.ChatEntity;
+import focandlol.domain.repository.chat.ChatRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import focandlol.domain.entity.Study;
+import focandlol.domain.entity.join.StudyMemberEntity;
+import focandlol.domain.repository.join.JoinRepository;
+import focandlol.domain.repository.post.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,9 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static com.campfiredev.growtogether.study.entity.StudyStatus.PROGRESS;
-import static com.campfiredev.growtogether.study.type.StudyMemberType.*;
 
 @Slf4j
 @Component

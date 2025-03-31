@@ -1,6 +1,7 @@
-package com.campfiredev.growtogether.chat.service;
+package focandlol.chat.service;
 
-import com.campfiredev.growtogether.member.util.JwtUtil;
+
+import focandlol.common.auth.util.JwtUtil;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

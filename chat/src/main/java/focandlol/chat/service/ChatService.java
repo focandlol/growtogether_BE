@@ -1,13 +1,13 @@
-package com.campfiredev.growtogether.chat.service;
+package focandlol.chat.service;
 
-import com.campfiredev.growtogether.chat.dto.ChatMessageDto;
-import com.campfiredev.growtogether.chat.dto.SliceMessageDto;
-import com.campfiredev.growtogether.chat.entity.ChatEntity;
-import com.campfiredev.growtogether.chat.repository.ChatRepository;
-import com.campfiredev.growtogether.study.entity.join.StudyMemberEntity;
-import com.campfiredev.growtogether.study.repository.join.JoinRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import focandlol.domain.dto.study.chat.ChatMessageDto;
+import focandlol.domain.dto.study.chat.SliceMessageDto;
+import focandlol.domain.entity.chat.ChatEntity;
+import focandlol.domain.repository.chat.ChatRepository;
+import focandlol.domain.entity.join.StudyMemberEntity;
+import focandlol.domain.repository.join.JoinRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

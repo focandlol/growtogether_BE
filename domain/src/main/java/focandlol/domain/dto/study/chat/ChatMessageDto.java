@@ -1,4 +1,4 @@
-package com.campfiredev.growtogether.chat.dto;
+package focandlol.domain.dto.study.chat;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,6 @@
 package focandlol.chat;
 
-import com.campfiredev.growtogether.member.util.JwtUtil;
-import java.security.Principal;
+import focandlol.common.auth.util.JwtUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

@@ -1,8 +1,8 @@
-package com.campfiredev.growtogether.chat.entity;
+package focandlol.domain.entity.chat;
 
-import com.campfiredev.growtogether.common.entity.BaseEntity;
-import com.campfiredev.growtogether.study.entity.Study;
-import com.campfiredev.growtogether.study.entity.join.StudyMemberEntity;
+import focandlol.common.entity.BaseEntity;
+import focandlol.domain.entity.Study;
+import focandlol.domain.entity.join.StudyMemberEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -64,7 +64,7 @@ public class VoteService {
     StudyMemberEntity voted = joinRepository.findById(voteCreateDto.getStudyMemberId())
         .orElseThrow(() -> new CustomException(NOT_A_STUDY_MEMBER));
 
-    String title = voted.getMember().getNickName() + "님의 대한 추방 투표입니다.";
+    String title = voted.getMember().getNickName() + "님에 대한 추방 투표입니다.";
 
     KickVoteEntity save = kickVoteRepository.save(
         KickVoteEntity.create(title, studyMemberEntity, voted));
