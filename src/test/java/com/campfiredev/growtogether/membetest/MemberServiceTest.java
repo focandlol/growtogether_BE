@@ -2,14 +2,14 @@
 //
 //import com.campfiredev.growtogether.mail.service.EmailService;
 //import com.campfiredev.growtogether.member.dto.MemberDto;
-//import com.campfiredev.growtogether.member.entity.MemberEntity;
+//import focandlol.domain.entity.MemberEntity;
 //import com.campfiredev.growtogether.member.entity.UserSkillEntity;
-//import com.campfiredev.growtogether.member.repository.MemberRepository;
+//import focandlol.domain.repository.MemberRepository;
 //import com.campfiredev.growtogether.member.repository.UserSkillRepository;
 //import com.campfiredev.growtogether.member.service.MemberService;
 //import com.campfiredev.growtogether.member.service.S3Service;
-//import com.campfiredev.growtogether.skill.entity.SkillEntity;
-//import com.campfiredev.growtogether.skill.repository.SkillRepository;
+//import focandlol.domain.entity.SkillEntity;
+//import focandlol.domain.repository.SkillRepository;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;

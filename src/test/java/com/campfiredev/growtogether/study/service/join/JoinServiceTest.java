@@ -10,16 +10,16 @@
 //import static org.mockito.Mockito.verify;
 //
 //import com.campfiredev.growtogether.exception.custom.CustomException;
-//import com.campfiredev.growtogether.member.entity.MemberEntity;
-//import com.campfiredev.growtogether.member.repository.MemberRepository;
+//import focandlol.domain.entity.MemberEntity;
+//import focandlol.domain.repository.MemberRepository;
 //import com.campfiredev.growtogether.point.service.PointService;
 //import com.campfiredev.growtogether.study.dto.join.StudyMemberListDto;
 //import com.campfiredev.growtogether.study.entity.Study;
-//import com.campfiredev.growtogether.study.entity.StudyStatus;
+//import focandlol.domain.type.StudyStatus;
 //import com.campfiredev.growtogether.study.entity.join.StudyMemberEntity;
 //import com.campfiredev.growtogether.study.repository.post.StudyRepository;
 //import com.campfiredev.growtogether.study.repository.join.JoinRepository;
-//import com.campfiredev.growtogether.study.type.StudyMemberType;
+//import focandlol.domain.type.StudyMemberType;
 //import java.util.List;
 //import java.util.Optional;
 //import org.junit.jupiter.api.BeforeEach;

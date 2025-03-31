@@ -1,10 +1,10 @@
 //package com.campfiredev.growtogether.study.service;
 //
 //import com.campfiredev.growtogether.exception.custom.CustomException;
-//import com.campfiredev.growtogether.member.entity.MemberEntity;
-//import com.campfiredev.growtogether.member.repository.MemberRepository;
-//import com.campfiredev.growtogether.skill.entity.SkillEntity;
-//import com.campfiredev.growtogether.skill.repository.SkillRepository;
+//import focandlol.domain.entity.MemberEntity;
+//import focandlol.domain.repository.MemberRepository;
+//import focandlol.domain.entity.SkillEntity;
+//import focandlol.domain.repository.SkillRepository;
 //import com.campfiredev.growtogether.study.dto.post.StudyDTO;
 //import com.campfiredev.growtogether.study.entity.SkillStudy;
 //import com.campfiredev.growtogether.study.entity.Study;

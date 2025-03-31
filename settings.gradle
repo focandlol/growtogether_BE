@@ -1,1 +1,6 @@
 rootProject.name = 'growtogether'
+
+include 'chat'
+include 'domain'
+include 'common'
+include 'api'
