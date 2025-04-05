@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = {
     "focandlol.domain",
     "focandlol.common",
-    "focandlol.chat"
+    "focandlol.chat",
+    "focandlol.consumer"
 })
 @EnableJpaRepositories(basePackages = "focandlol.domain.repository")
 @EntityScan(basePackages = "focandlol.domain.entity")
