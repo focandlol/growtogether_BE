@@ -1,8 +1,7 @@
-package focandlol.chat.service;
+package focandlol.chat;
 
 
 import focandlol.common.auth.util.JwtUtil;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;

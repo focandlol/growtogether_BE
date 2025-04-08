@@ -1,15 +1,14 @@
 package focandlol.chat.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import focandlol.chat.ChatManager;
 import focandlol.chat.DeleteRedis;
 import focandlol.chat.RedisChatMockDataGenerator;
+import focandlol.consumer.chat.ChatProducer;
 import focandlol.domain.dto.study.chat.ChatMessageDto;
 import focandlol.domain.dto.study.chat.SliceMessageDto;
 import focandlol.chat.service.ChatService;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -43,29 +42,12 @@ public class ChatController {
   private final RedisChatMockDataGenerator redisChatMockDataGenerator;
   private final DeleteRedis deleteRedis;
 
+  private final ChatProducer chatProducer;
+
   @MessageMapping("/study/{studyId}/send")
   public void sendMessage(@DestinationVariable String studyId, @Payload ChatMessageDto chatMessageDto) {
     chatMessageDto.setDate(LocalDateTime.now());
-
-    try {
-      if(chatMessageDto.getTo() == null || chatMessageDto.getTo().isEmpty()) {
-        redisTemplate.opsForList()
-            .leftPush("chat" + studyId, objectMapper.writeValueAsString(chatMessageDto));
-      }
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
-    }
-
-    if (chatMessageDto.getTo() != null && !chatMessageDto.getTo().isEmpty()) {
-      Set<String> recipients = new HashSet<>(chatMessageDto.getTo());
-      recipients.add(chatMessageDto.getSender());
-
-      for (String recipient : recipients) {
-        sendDirectMessage(recipient, studyId, chatMessageDto);
-      }
-    } else {
-      messagingTemplate.convertAndSend("/topic/study/" + studyId, chatMessageDto);
-    }
+    chatProducer.sendMessage(chatMessageDto);
   }
 
   @PostMapping("/generate-chat")
